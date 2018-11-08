@@ -50,7 +50,8 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '//j1.58cdn.com.cn/crop/baseteam/yunying/xxx/',
-    imagePublishPath: '//img/58cdn.com.cn/crop/baseteam/yunying/xxx/img/',
+    cssPublishPath: '//c.58cdn.com.cn/crop/baseteam/yunying/xxx/img/',
+    imagePublishPath: '//img.58cdn.com.cn/crop/baseteam/yunying/xxx/img/',
     /**
      * Source Maps
      */

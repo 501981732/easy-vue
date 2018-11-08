@@ -78,7 +78,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       filename: utils.assetsPath('css/[name].[contenthash].css'),
       allChunks: true,
     }),
-    // inject skeleton content(DOM & CSS) into HTML
     new SkeletonWebpackPlugin({
       webpackConfig: require('./webpack.skeleton.conf'),
       quiet: true
