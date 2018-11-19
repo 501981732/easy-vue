@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3>demo</h3>
     <div class="block block-2">
       <div class="container" flexcontainer>
         <div class="block-item" w-375-224 aspectratio aspect-ratio="375/224">
@@ -54,7 +55,7 @@ export default {
 
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" >
+<style scoped >
 html {
   height: 100vh;
   box-sizing: border-box;
@@ -72,7 +73,6 @@ img {
   content: normal !important;
 }
 
-  //等比例宽高容器
 [aspectratio] {
   position: relative;
 }
@@ -109,7 +109,7 @@ img {
 }
 
 [w-375-224] {
-  // 和其他属性分这些，否则编译的时候只剩下自己
+  /* 和其他属性分这些，否则编译的时候只剩下自己*/
   aspect-ratio: '375:224';
 }
 
@@ -160,9 +160,6 @@ img {
 [w-187-246] {
   aspect-ratio: '187:246';
 }
-
-</style>
-<style>
   @svg 1px-border {
     height: 2px;
     @rect {

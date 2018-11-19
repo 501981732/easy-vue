@@ -7,9 +7,9 @@ const path = require('path')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
+// const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
 const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
@@ -21,6 +21,34 @@ baseWebpackConfig.module.rules.forEach((item,index) => {
     baseWebpackConfig.module.rules[index].use = item.use.filter(Boolean)
   }
 })
+// 多页面配置
+// const pages = utils.getEntry('./src/module/**/*.html','html')
+
+// const pagesConf = Object.keys(pages).map(item => {
+
+//   let conf = {
+//     filename: item + '.html',
+//     template: pages[item], // 模板路径
+//     minify: { //传递 html-minifier 选项给 minify 输出
+//       removeComments: true
+//     },
+//     inject: 'body', // js插入位置
+//     chunks: [item, "vendor", "manifest"]
+//   }
+//   return new HtmlWebpackPlugin(conf)
+// })
+const glob = require('glob');
+const htmls = glob.sync('./src/modules/**/*.html').map(function (item) {
+  var names = item.split('/')
+  return new HtmlWebpackPlugin({
+    // filename: './'+ names[2]+'/'+names[4],    //相当于url
+    filename: './' + names[4],    //相当于url  './main.html'
+    template: item,               //模板路径    './src/modules/**/*.html'
+    inject: true,
+    chunks:[item.slice(6, -5),'vendor','manifest'],
+    chunksSortMode: 'dependency'
+  });
+});
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -61,11 +89,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: 'index.html',
+    //   template: 'index.html',
+    //   inject: true
+    // }),
     // copy custom static assets
     new CopyWebpackPlugin([
       {
@@ -74,15 +102,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]),
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css'),
-      allChunks: true,
-    }),
-    new SkeletonWebpackPlugin({
-      webpackConfig: require('./webpack.skeleton.conf'),
-      quiet: true
-    }),
-  ]
+    // new ExtractTextPlugin({
+    //   filename: utils.assetsPath('css/[name].[contenthash].css'),
+    //   allChunks: true,
+    // }),
+    // new SkeletonWebpackPlugin({
+    //   webpackConfig: require('./webpack.skeleton.conf'),
+    //   quiet: true
+    // }),
+  ].concat(htmls)
 })
 
 module.exports = new Promise((resolve, reject) => {

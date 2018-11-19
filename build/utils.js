@@ -3,7 +3,7 @@ const path = require('path')
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
-
+const glob = require('glob')
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
     ? config.build.assetsSubDirectory
@@ -99,3 +99,21 @@ exports.createNotifierCallback = () => {
     })
   }
 }
+
+exports.getEntry = (globPath,type='js') => {
+  // var entries = {},
+  //   basename, tmp, pathname;
+  // glob.sync(globPath).forEach(function (entry) {
+  //   basename = path.basename(entry, path.extname(entry));
+  //   tmp = entry.split('/').splice(-3);
+  //   pathname = tmp.splice(0, 1) + '/' + basename; // 正确输出js和html的路径
+  //   entries[pathname] = entry;
+  // });
+  // return entries;
+  return glob.sync(globPath).reduce(function (prev, curr) {
+    type == 'js' ? prev[curr.slice(6, -3)] = curr :  prev[curr.slice(6, -5)] = curr
+    return prev;
+  }, {});
+}
+// { 'module/fairs/index': './src/module/fairs/index.js',
+//   'module/shop/index': './src/module/shop/index.js' }

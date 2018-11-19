@@ -44,3 +44,20 @@ export const validataPhone = (n) => /^[1][3,4,5,7,8,9][0-9]{9}$/.test(n);
  * @return   {boolean}      
  */
 export const validataFixedLineTelephone = (n) => /\d{2,5}-\d{7,8}/.test(n);
+/**
+ * 判断平台
+ * @Author   wm
+ * @DateTime 2018-09-05
+ * @return   {string}  平台类型    
+ */
+export const validataOS = function() {
+    if (navigator.userAgent.indexOf("Window") > 0) {
+        return "Windows";
+    } else if (navigator.userAgent.indexOf("Mac OS X") > 0) {
+        return "Mac";
+    } else if (navigator.userAgent.indexOf("Linux") > 0) {
+        return "Linux";
+    } else {
+        return "NUll";
+    }
+}

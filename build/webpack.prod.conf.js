@@ -11,10 +11,20 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // skeleton
-const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
-const OmmitCSSPlugin = require('./ommit-css-webpack-plugin')
+// const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
+// const OmmitCSSPlugin = require('./ommit-css-webpack-plugin')
 const env = require('../config/prod.env')
-
+// 多页面配置
+var glob = require('glob');
+var htmls = glob.sync('./src/modules/**/*.html').map(function (item) {
+  return new HtmlWebpackPlugin({
+    filename: './' + item.slice(6), //   './modules/xx/xx.html'
+    template: item,                  //    './src/modules/**/*.html' 模板位置
+    inject: true,
+    chunks:[item.slice(6, -5),'vendor','manifest'],  // '对应entry'
+    chunksSortMode: 'dependency'
+  });
+});
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -29,7 +39,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     //版本号由rd来控制 故去掉chunkhash
     // filename: utils.assetsPath('js/[name].[chunkhash].js'),
     filename: utils.assetsPath('js/[name].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash:7].js')
+    chunkFilename: utils.assetsPath('js/[name].[chunkhash:7].js')
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -39,7 +49,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {
-          warnings: false
+          warnings: false,
+          drop_console: true,//删除所有的 `console` 语句，可以兼容ie浏览器
         }
       },
       sourceMap: config.build.productionSourceMap,
@@ -50,18 +61,18 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: utils.assetsPath('css/[name].css'),
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
-      // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
+      // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-      // publicPath: config.build.cssPublicPath,
+      // publicPath: config.build.imgPublicPath,
       allChunks: true,
     }),
-    
+
     // skeleton
-    new SkeletonWebpackPlugin({
-      webpackConfig: require('./webpack.skeleton.conf'),
-      quiet: true
-    }),
-    new OmmitCSSPlugin(),
+    // new SkeletonWebpackPlugin({
+    //   webpackConfig: require('./webpack.skeleton.conf'),
+    //   quiet: true
+    // }),
+    // new OmmitCSSPlugin(),
 
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -73,20 +84,20 @@ const webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: config.build.index,
-      template: 'index.html',
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: config.build.index,
+    //   template: 'index.html',
+    //   inject: true,
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true
+    //     // more options:
+    //     // https://github.com/kangax/html-minifier#options-quick-reference
+    //   },
+    //   // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    //   chunksSortMode: 'dependency'
+    // }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
@@ -129,7 +140,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
-  ]
+  ].concat(htmls)
 })
 
 if (config.build.productionGzip) {

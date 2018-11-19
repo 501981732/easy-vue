@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import store from '@/store/'
+import FastClick from 'fastclick'
+
 Vue.config.productionTip = false
 
 import 'babel-polyfill' // API垫片
@@ -17,30 +19,33 @@ import './assets/css/reset.css'
 // import 'amfe-flexible/index.js'
 
 
-// vue插件 
+// vue插件
 import AlertPlugin from './plugins/alert/index.js'
 Vue.use(AlertPlugin)
 
 // 自动注入components
 import './components/global.js'
 
+FastClick.attach(document.body);
+
 window.axios = axios
 
 /* eslint-disable no-new */
-let app = new Vue({
+new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
 
-window.mountApp = () => {
-  app.$mount('#app')
-}
-if (process.env.NODE_ENV === 'production') {
-  if (window.STYLE_READY) {
-    window.mountApp()
-  }
-} else {
-  window.mountApp()
-}
+// window.mountApp = () => {
+//   app.$mount('#app')
+// }
+// if (process.env.NODE_ENV === 'production') {
+//   if (window.STYLE_READY) {
+//     window.mountApp()
+//   }
+// } else {
+//   window.mountApp()
+// }

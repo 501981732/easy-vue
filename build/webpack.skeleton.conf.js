@@ -1,23 +1,48 @@
 const path = require('path')
-const merge = require('webpack-merge')
-const baseWebpackConfig = require('./webpack.base.conf')
+const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
+const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
+// const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-function resolve(dir) {
-  return path.join(__dirname, dir)
-}
-
-module.exports = merge(baseWebpackConfig, {
+module.exports = {
   target: 'node',
-  devtool: false,
   entry: {
-    app: resolve('../src/skeleton.entry.js')
+    skeleton: './src/skeleton.entry.js'
   },
-  output: Object.assign({}, baseWebpackConfig.output, {
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/dist/',
+    filename: '[name].js',
     libraryTarget: 'commonjs2'
-  }),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
+    ]
+  },
   externals: nodeExternals({
     whitelist: /\.css$/
   }),
-  plugins: []
-})
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['*', '.js', '.vue', '.json']
+  },
+  plugins: [
+    // new VueLoaderPlugin(),
+    new VueSSRServerPlugin({
+      filename: 'skeleton.json'
+    })
+  ]
+}

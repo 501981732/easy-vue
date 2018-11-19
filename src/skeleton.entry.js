@@ -1,9 +1,11 @@
-import skeleton from './components/skeleton.vue'
 import Vue from 'vue'
-// 创建一个骨架屏 Vue 实例
+import skeleton from './components/skeleton.vue'
+
+console.log('Skeleton...')
+
 export default new Vue({
-    components: {
-        skeleton
-    },
-    template: '<skeleton/>'
+  components: {
+    skeleton
+  },
+  template: '<skeleton />'
 })

@@ -4,6 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -17,11 +18,13 @@ const IMAGE_LOADER_QUERY = ISPROD ? `&name=${IMAGE_NAME}&outputPath=/img&publicP
 //上线前打包压缩图片 开发环境禁用
 const IMAGELOADER = ISPROD ? `image-webpack-loader?{mozjpeg: {progressive: true,quality: 65},pngquant:{quality: "55-90", speed: 4}}` : null
 
+console.log(utils.getEntry('./src/modules/**/*.js'))
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
-    app: './src/main.js'
-  },
+  // entry: {
+  //   app: './src/main.js'
+  // },
+  entry: utils.getEntry('./src/modules/**/*.js'), // 获得入口js文件,
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -56,7 +59,7 @@ module.exports = {
         //   name:  utils.assetsPath('img/[name].[ext]')
         use: [
           `url-loader?limit=10000${IMAGE_LOADER_QUERY}`,
-          IMAGELOADER,
+          // IMAGELOADER,
         ]
       },
       {
@@ -88,10 +91,10 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
-  // externals: {  
-  //   'vue': 'Vue',  
-  //   'vue-router': 'VueRouter',  
-  //   'axios': 'axios'  
+  },
+  // externals: {
+  //   'vue': 'Vue',
+  //   'vue-router': 'VueRouter'
+  //   'axios': 'axios',
   // }
 }
