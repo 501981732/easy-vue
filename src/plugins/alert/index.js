@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Alert from '@/components/x-alert';
+import Vue from "vue";
+import Alert from "@/components/x-alert";
 
 /**
  * [alert插件]
@@ -20,31 +20,33 @@ const plugin = {
         const AlertPlugin = Vue.extend(Alert);
 
         let $vm = new AlertPlugin({
-            el: document.createElement('div')
+            el: document.createElement("div")
         });
         document.body.appendChild($vm.$el);
 
-        function alert(options = {
-            delayed: true
-        }) {
+        function alert(
+            options = {
+                delayed: true
+            }
+        ) {
             if ($vm.show) return;
             // 如果传参为字符串，则直接显示body 的文本
-            if (typeof options === 'string') {
+            if (typeof options === "string") {
                 options = {
                     body: arguments[0]
                 };
             }
-            //配置优选级：实例配置 > 全部配置 > 默认配置
+            // 配置优选级：实例配置 > 全部配置 > 默认配置
             $vm = Object.assign($vm, props, options);
             $vm.show = true;
             // 支持延时消失 默认支持
             if ($vm.delayed) {
                 setTimeout(_ => {
-                    $vm.show = false
-                }, 3000)
+                    $vm.show = false;
+                }, 3000);
             }
             return new Promise((resolve, reject) => {
-                $vm.$watch('show', val => {
+                $vm.$watch("show", val => {
                     resolve();
                 });
             });

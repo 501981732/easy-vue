@@ -1,22 +1,24 @@
-.clearfix:after,.clear:before{
+.clearfix:after,
+.clear:before {
     display: block;
     height: 0;
     visibility: hidden;
     clear: both;
-    content:".";
+    content: ".";
 }
-.clearfix{
+.clearfix {
     // overflow: auto;
     zoom: 1;
 }
-[clearfix]:after,[clear]:before{
+[clearfix]:after,
+[clear]:before {
     display: block;
     height: 0;
     visibility: hidden;
     clear: both;
-    content:".";
+    content: ".";
 }
-[clearfix]{
+[clearfix] {
     // overflow: auto;
     zoom: 1;
 }

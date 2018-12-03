@@ -1,21 +1,16 @@
 <style scoped>
-  .index {
+.index {
     color: blue;
-  }
+}
 </style>
 <template>
-
-  <div id="app" class="demo">
-   hello demo
-   haha
-   <vw-demo/>
-  </div>
-
+    <div id="app" class="demo">
+        hello demo haha
+        <vw-demo />
+    </div>
 </template>
 <script>
-
 export default {
-  name: 'index'
-}
-
+    name: "index"
+};
 </script>

@@ -1,15 +1,14 @@
 module.exports = class OmmitCSSPlugin {
-    constructor() {}
+  constructor() {}
 
-    apply(compiler) {
-        compiler.plugin('compilation', (compilation) => {
-            compilation.plugin(
-                'html-webpack-plugin-alter-asset-tags',
-                (args, cb) => {
-                    args.head = args.head.filter((link) => link.attributes.rel !== 'stylesheet');
-                    cb(null, args);
-                }
-            );
-        });
-    }
-}
+  apply(compiler) {
+    compiler.plugin("compilation", compilation => {
+      compilation.plugin("html-webpack-plugin-alter-asset-tags", (args, cb) => {
+        args.head = args.head.filter(
+          link => link.attributes.rel !== "stylesheet"
+        );
+        cb(null, args);
+      });
+    });
+  }
+};

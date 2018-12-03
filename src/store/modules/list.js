@@ -1,29 +1,27 @@
 /**
  * 分模块处理vuex
  */
-import * as types from '../types'
+import * as types from "../types";
 
 const state = {
-	info: {}
-}
+    info: {}
+};
 
-const actions = {
-
-}
+const actions = {};
 
 const getters = {
-  info: state => state.info,
-}
+    info: state => state.info
+};
 
 const mutations = {
-  [types.SET_INFO](state, payload) {
-    state.info = payload
-  },
-}
+    [types.SET_INFO](state, payload) {
+        state.info = payload;
+    }
+};
 
 export default {
-  state,
-  actions,
-  getters,
-  mutations
-}
+    state,
+    actions,
+    getters,
+    mutations
+};

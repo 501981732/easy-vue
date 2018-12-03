@@ -1,32 +1,29 @@
-const path = require('path')
-const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals')
-const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
+const path = require("path");
+const webpack = require("webpack");
+const nodeExternals = require("webpack-node-externals");
+const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
-  target: 'node',
+  target: "node",
   entry: {
-    skeleton: './src/skeleton.entry.js'
+    skeleton: "./src/skeleton.entry.js"
   },
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: '/dist/',
-    filename: '[name].js',
-    libraryTarget: 'commonjs2'
+    path: path.resolve(__dirname, "../dist"),
+    publicPath: "/dist/",
+    filename: "[name].js",
+    libraryTarget: "commonjs2"
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ]
+        use: ["vue-style-loader", "css-loader"]
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: "vue-loader"
       }
     ]
   },
@@ -35,14 +32,14 @@ module.exports = {
   }),
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      vue$: "vue/dist/vue.esm.js"
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    extensions: ["*", ".js", ".vue", ".json"]
   },
   plugins: [
     // new VueLoaderPlugin(),
     new VueSSRServerPlugin({
-      filename: 'skeleton.json'
+      filename: "skeleton.json"
     })
   ]
-}
+};
