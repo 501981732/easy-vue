@@ -11,7 +11,6 @@
         <div v-for="i in 6" class="skeleton-productions" :key="i"></div>
     </div>
 </template>
-
 <style>
 .skeleton {
     position: relative;
@@ -21,16 +20,19 @@
     box-sizing: border-box;
     background: #fff;
 }
+
 .skeleton-nav {
     height: 45px;
     background: #eee;
     margin-bottom: 15px;
 }
+
 .skeleton-swiper {
     height: 160px;
     background: #eee;
     margin-bottom: 15px;
 }
+
 .skeleton-tabs {
     list-style: none;
     padding: 0;
@@ -38,6 +40,7 @@
     display: flex;
     flex-wrap: wrap;
 }
+
 .skeleton-tabs-item {
     width: 25%;
     height: 55px;
@@ -45,6 +48,7 @@
     text-align: center;
     margin-bottom: 15px;
 }
+
 .skeleton-tabs-item span {
     display: inline-block;
     width: 55px;
@@ -52,11 +56,13 @@
     border-radius: 55px;
     background: #eee;
 }
+
 .skeleton-banner {
     height: 60px;
     background: #eee;
     margin-bottom: 15px;
 }
+
 .skeleton-productions {
     height: 20px;
     margin-bottom: 15px;

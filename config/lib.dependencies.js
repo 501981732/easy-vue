@@ -1,12 +1,7 @@
 // 工程组件，用于提前编译
-const lib = [
-  "vue"
-  // 'fastclick',
-  // 'amfe-flexible',
-  // 'vue-router',
-  // 'vuex',
-  // 'axios',
-  // 'babel-polyfill'
-];
+const lib = {
+    allvue: ['vue/dist/vue.esm.js', 'vue-router', 'vuex']
+
+}
 
 module.exports = lib;
