@@ -25,7 +25,7 @@ npm run eslint
 # eslint 代码修复
 npm run eslint:fix
 
-# 代码格式化 (多人写作不建议使用，git commit 自动美化 eslint:fix代码)
+# 代码格式化 (多人协作不建议使用，git commit 自动美化 eslint:fix自己修改部分的代码)
 npm run prettier
 
 #生成代码文档（jsdoc格式注释代码）
