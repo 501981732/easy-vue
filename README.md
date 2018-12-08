@@ -5,6 +5,8 @@
 ## Build Setup
 
 ``` bash
+```base
+yo easy-vue   一键生成可配置项目
 # install dependencies
 npm install or yarn install
 
@@ -40,9 +42,18 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
-```
 
+#配置 publicPath imagePublicPath 或修改 config/index.js
+yo easy-vue:imagePublicPath path...
+yo easy-vue:publicPath path...
+
+# 一键生成页面
+yo easy-vue:page pageName  一键生成page
+yo easy-vue:mpage pageName  一键生成mutil-page(if you choose MPA)
+```
 ## 功能
+
+```
 1. 支持可选reset.css normalize.css
 2. 支持可选 rem布局 or vw布局
 3. 等比例宽高容器 一像素边框等移动端解决方案
@@ -72,3 +83,64 @@ npm run build --report
 ps: 非常棒的preload prefetch and prepack 相关插件不支持webpack3.X   sad💔...
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+```
+
+## 目录结构
+
+```
+.
+├── build                                       // 启动文件
+│   ├── build
+│   ├── check-versions.js
+│   ├── logo.png
+│   ├── commit-css-webpack-plugin.js             //骨架屏相关插件
+│   ├── utils.js
+│   ├── vue-loader.conf.js
+│   ├── webpack.base.conf.js
+│   ├── webpack.dev.conf.js
+│   ├── webpack.prod.conf.js
+│   ├── webpack.dll.conf.js                      //dll动态连接库
+│   ├── webpack.skeleton.conf.js                 //生成骨架屏
+├── config                                       // 项目环境配置
+│   ├── index.js                                 // 入口
+│   ├── dll.libs.dependencies.js                 // dll所需库配置
+│   ├── dev.env.js                               // 开发环境配置
+│   ├── prod.env.js                              // 生成环境配置
+├── dist                                         // 上线打包
+│   ├── modules                                  // 多页面
+│   ├── static
+│   │   ├── css
+│   │   ├── js
+│   │   └── libs                                 //动态链接库文件
+├── jsdoc                                        // jsdoc 注释自动生成文档
+├── src                                          // 源码目录
+│   ├── assets
+│   ├── components
+│   ├── config
+│   │   ├── apis.js                              //封装接口
+│   │   ├── axiosConfig.js                       //配置axios
+│   │   ├── env.js                               //根据环境配置 切换接口baseURL && history模式路由配置
+│   ├── mixins
+│   ├── modules                                  //多页面
+│   ├── pages
+│   ├── plugin                                   //手写vue插件
+│   ├── router
+│   ├── store                                    // 初始化vuex
+│   ├── utils
+│   ├── APP.vue
+│   ├── mian.js
+│   ├── skeleton.entry.js                          //骨架屏配置
+├── static
+├── .babelrc
+├── .editorconfig
+├── eslintrc.js
+├── .eslintignore
+├── .gitignore
+├── postcssrc.js
+├── index.html
+├── jsdoc.cong.json                               //jsdoc配置文件
+├── .index
+├── package.json
+├── package-lock.json
+└── README.md
+```
