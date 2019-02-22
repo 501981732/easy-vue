@@ -1,46 +1,46 @@
 /**
- * @file alert插件
+ * @file toast插件
  * @example
- *this.$x.alert({
- *   title: '你好',
- *   subtitle: '我是副标题',
- *   body:'呵呵',
- *   delayed: true,
- *   duration: 3000,
- *   boxClass: ''
+ * useage:
+ * this.$x.toast('你好')
+ * this.$x.toast({
+ *     message: '你好',
+ *     position: 'top',
+ *     duration: 2000,
+ *     toastClass: ''
  * })
- *   .then(val => {
- *       console.log('change');
- *   });
  */
 
 import Vue from "vue";
-import Alert from "@/components/Alert.vue";
+import Toast from "@/components/Toast";
 
 const defaultProps = {
     delayed: true,
-    duration: 3000
+    duration: 2000
 };
-
 const plugin = {
     install(vue, props = {}) {
-        const AlertPlugin = Vue.extend(Alert);
-
-        let $vm = new AlertPlugin({
+        const ToastPlugin = Vue.extend(Toast);
+        // toast实例 $vm
+        let $vm = new ToastPlugin({
             el: document.createElement("div")
         });
         document.body.appendChild($vm.$el);
 
-        function alert(options = {}) {
+        function toast(options = {}) {
+            // 如果当前显示 则return
             if ($vm.show) return;
 
             // 如果传参为字符串，则直接显示body 的文本
             if (typeof options === "string") {
                 options = {
-                    body: arguments[0]
+                    message: arguments[0]
                 };
             }
-            //配置优选级： 组件默认配置 < 插件默认配置 < 全局配置 < 实例配置
+            //配置优选级： 默认配置 < 全局配置 < 实例配置
+            //$vm为默认配置
+            //install时传入的props为全局设置
+            //调取toast时传入的options为实例配置
             $vm = Object.assign($vm, defaultProps, props, options);
             $vm.show = true;
             // 支持延时消失 默认支持
@@ -58,11 +58,12 @@ const plugin = {
 
         if (!vue.$x) {
             vue.$x = {
-                alert
+                toast
             };
         } else {
-            vue.$x.alert = alert;
+            vue.$x.toast = toast;
         }
+
         vue.mixin({
             created: function() {
                 this.$x = vue.$x;

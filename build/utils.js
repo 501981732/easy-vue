@@ -43,6 +43,18 @@ exports.cssLoaders = function(options) {
           sourceMap: options.sourceMap
         })
       });
+    if (loader === 'less') {
+        loaders.push({
+            loader: 'style-resources-loader',
+            options: {
+                patterns: [
+                    path.resolve(__dirname, '../src/assets/css/vars.less'),
+                    path.resolve(__dirname, '../src/assets/css/mixins.less'),
+                ],
+                injector: 'append'
+            }
+        })
+    }
     }
 
     // Extract CSS when that option is specified

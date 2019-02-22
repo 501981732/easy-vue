@@ -1,8 +1,11 @@
 <template>
     <div class="hello">
         <h1>{{ msg }}</h1>
-        <vw-demo />
-        <button @click="showAlert">button</button>
+        <!-- <vw-demo /> -->
+        <div @click="showAlert">showAlert</div>
+        <div @click="showLoading">showLoading</div>
+        <div @click="showToast">showToast</div>
+        <div @click="showConfirm">showConfirm</div>
     </div>
 </template>
 
@@ -23,11 +26,36 @@ export default {
                     title: "你好",
                     subtitle: "我是副标题",
                     body: "呵呵",
-                    delayed: true
+                    delayed: false
                 })
                 .then(val => {
                     console.log("change");
                 });
+        },
+        showConfirm() {
+            this.$x
+                .confirm({
+                    title: "提示1",
+                    body: "1",
+                    cancleText: "取消",
+                    confirmText: "确定",
+                    btnReverse: false, //按钮是否反正
+                    useHTMLString: "false" //是否使用动态HTML插入
+                })
+                .then(res => {
+                    console.log(res); //根据res判断是取消还是确定
+                });
+        },
+        showToast() {
+            this.$x.toast({
+                message: "你好",
+                position: "top",
+                duration: 2000,
+                toastClass: ""
+            });
+        },
+        showLoading() {
+            this.$x.loading.show();
         }
     }
 };

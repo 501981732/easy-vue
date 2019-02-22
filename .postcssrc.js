@@ -38,12 +38,12 @@ module.exports = {
       minPixelValue: 1, // 小于或等于`1px`不转换为视窗单位，你也可以设置为你想要的值
       mediaQuery: false // 允许在媒体查询中转换`px`
     },
-    "postcss-viewport-units": {}, //给CSS的属性添加content的属性，配合viewport-units-buggyfill库给vw、vh、vmin和vmax做适配的操作。
-    cssnano: {
-      //压缩和清理CSS代码 cssnano和css-loader捆绑在一起，所以不需要自己加载它
-      preset: "advanced",
-      autoprefixer: false,
-      "postcss-zindex": false
-    }
+    // "postcss-viewport-units": {}, //给CSS的属性添加content的属性，配合viewport-units-buggyfill库给vw、vh、vmin和vmax做适配的操作。 废弃
+    // cssnano: {
+    //   //压缩和清理CSS代码 cssnano和css-loader捆绑在一起，所以不需要自己加载它
+    //   preset: "advanced",
+    //   autoprefixer: false,
+    //   "postcss-zindex": false
+    // }
   }
 };

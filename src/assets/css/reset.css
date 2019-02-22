@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -108,7 +108,15 @@ section {
 }
 
 body {
-    line-height: 1;
+    line-height: normal;
+    -webkit-text-size-adjust: none;
+    min-height: 100%;
+    /*滚动不顺畅*/
+    -webkit-overflow-scrolling: touch;
+    font-family: -apple-system,BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans GB', "Microsoft YaHei", Helvetica, "\5B8B\4F53", sans-serif;
+    /*避免动画撑开*/
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 ol,
@@ -125,11 +133,30 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-    content: "";
+    content: '';
     content: none;
 }
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+/*补充*/
+input,
+button,
+textarea {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+button {
+    outline: none;
+}
+
+a {
+    text-decoration: none
 }
